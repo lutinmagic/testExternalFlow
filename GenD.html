@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salesforce Flow Form</title>
+    <script src="https://de1741015424256.lightning.force.com/lightning/lightning.out.js"></script>
+</head>
+<body>
+    <div id="flowContainer"></div>
+
+    <script>
+        $Lightning.use("c:ExternalForm", function() {
+            $Lightning.createComponent("c:FlowHost", {},
+                "flowContainer",
+                function(cmp) {
+                    console.log("Flow loaded!");
+                }
+            );
+        }, "https://de1741015424256.lightning.force.com/");
+    </script>
+</body>
+</html>
