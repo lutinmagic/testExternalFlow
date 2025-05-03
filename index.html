@@ -5,31 +5,15 @@
     <script src="https://de1741015424256.lightning.force.com/lightning/lightning.out.js"></script>
 </head>
 <body>
-    test
-    <div id="flowContainer"></div>
+    <h1>External screen flow example</h1>
 
-    <script>
-        $Lightning.use("c:ExternalForm", function() {
-            $Lightning.createComponent("c:FlowHost", {},
-                "flowContainer",
-                function(cmp) {
-                    console.log("Flow loaded!");
-                }
-            );
-        }, "https://de1741015424256.lightning.force.com/");
-    </script>
-
-    <script>
-    $Lightning.use("c:FlowOutApp", function() {
-      $Lightning.createComponent("c:FlowHost", {},
-        "flowContainer",
-        function(cmp) {
-          console.log("Component loaded.");
-        }
-      );
-    }, "https://de1741015424256.lightning.force.com", {
-      accessToken: "3MVG9VTfpJmxg1yjTOJq4xfZb.a2v5s9MWnWZkw5Uvrn7ax61NCVTpjisurMlMWh1znGDuKhf3LSRtkBjRP92"
-    });
-  </script>
+    <iframe 
+  src="https://de1732829328718.my.site.com/externalflow/" 
+  width="100%" 
+  height="600" 
+  style="border:none;" 
+  allowfullscreen>
+</iframe>
+    
 </body>
 </html>
