@@ -1,73 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Salesforce Flow with reCAPTCHA</title>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>Salesforce Flow Form</title>
 
-
-  <script>
-  function onCaptchaVerified(token) {
-    const iframe = document.getElementById('sf-frame');
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage({ recaptchaToken: token }, '*');
-      console.log('✅ reCAPTCHA token sent to iframe:', token);
-    }
-  }
-
-  window.onload = function () {
-    if (window.grecaptcha) {
-      grecaptcha.render('captcha-wrapper', {
-        sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWg',
-        
-        callback: onCaptchaVerified
-      });
-    }
-  };
-</script>
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    #captcha-container {
-      padding: 10px;
-      background-color: #f4f4f4;
-      text-align: center;
-      z-index: 10;
-    }
-
-    #iframe-container {
-      flex-grow: 1;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
 </head>
-<body>
-
-  <!-- CAPTCHA at the top -->
-  <div id="captcha-container">
-    <p style="margin: 0 0 10px 0;">Please verify you're human</p>
-    <div id="captcha-wrapper"></div>
-  </div>
-
-  <!-- Flow iframe below -->
-  <div id="iframe-container">
-    <iframe
-      id="sf-frame"
-      src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/"
-      allowfullscreen>
-    </iframe>
-  </div>
-
+<body style="margin:0; padding:0; overflow:hidden;">
+    
+  <iframe
+    src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/"
+    style="position:fixed;
+           top:0;
+           left:0;
+           width:100vw;
+           height:100vh;
+           border:none;"
+    allowfullscreen>
+  </iframe>
+    
 </body>
 </html>
