@@ -14,13 +14,14 @@
 
     window.onload = function () {
       if (window.grecaptcha) {
-        grecaptcha.render('captcha-container', {
-          sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWg',
+        grecaptcha.render('captcha-wrapper', {
+          sitekey: 'YOUR_SITE_KEY',
           callback: onCaptchaVerified
         });
       }
     };
   </script>
+
   <style>
     html, body {
       margin: 0;
@@ -29,12 +30,20 @@
       overflow: hidden;
     }
 
+    /* Container that does NOT block clicks except where needed */
     #captcha-container {
       position: absolute;
       top: 20px;
       left: 20px;
+      width: 302px;
+      height: 78px;
       z-index: 10;
-      pointer-events: none; /* ✅ Allows click-through to iframe */
+      pointer-events: none; /* Allows clicks to pass through EXCEPT reCAPTCHA itself */
+    }
+
+    /* This element gets pointer events */
+    #captcha-wrapper {
+      pointer-events: auto;
     }
 
     iframe {
@@ -46,13 +55,6 @@
 </head>
 <body>
 
-  <div id="captcha-container"></div>
-
-  <iframe
-    id="sf-frame"
-    src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/"
-    allowfullscreen>
-  </iframe>
-
-</body>
-</html>
+  <!-- Only the inner wrapper accepts clicks -->
+  <div id="captcha-container">
+    <div id="captcha-wrapper
