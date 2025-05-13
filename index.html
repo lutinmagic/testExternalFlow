@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Flow Embed with reCAPTCHA</title>
+  <title>Salesforce Flow with reCAPTCHA</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script>
     function onCaptchaVerified(token) {
@@ -15,9 +15,16 @@
     window.onload = function () {
       if (window.grecaptcha) {
         grecaptcha.render('captcha-wrapper', {
-          sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWg',
+          sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWg', // 🔁 Replace with your real site key
           callback: onCaptchaVerified
         });
+      } else {
+        setTimeout(() => {
+          grecaptcha.render('captcha-wrapper', {
+            sitekey: 'YOUR_SITE_KEY',
+            callback: onCaptchaVerified
+          });
+        }, 1000);
       }
     };
   </script>
@@ -27,44 +34,44 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Container that does NOT block clicks except where needed */
     #captcha-container {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 302px;
-      height: 78px;
+      padding: 10px;
+      background-color: #f4f4f4;
+      text-align: center;
       z-index: 10;
-      pointer-events: none; /* Allows clicks to pass through EXCEPT reCAPTCHA itself */
     }
 
-    /* This element gets pointer events */
-    #captcha-wrapper {
-      pointer-events: auto;
+    #iframe-container {
+      flex-grow: 1;
     }
 
     iframe {
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       border: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Only the inner wrapper accepts clicks -->
+  <!-- CAPTCHA at the top -->
   <div id="captcha-container">
+    <p style="margin: 0 0 10px 0;">Please verify you're human</p>
     <div id="captcha-wrapper"></div>
   </div>
 
-  <iframe
-    id="sf-frame"
-    src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/"
-    allowfullscreen>
-  </iframe>
+  <!-- Flow iframe below -->
+  <div id="iframe-container">
+    <iframe
+      id="sf-frame"
+      src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/"
+      allowfullscreen>
+    </iframe>
+  </div>
 
 </body>
 </html>
