@@ -3,31 +3,26 @@
 <head>
   <title>Salesforce Flow with reCAPTCHA</title>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <script>
-    function onCaptchaVerified(token) {
-      const iframe = document.getElementById('sf-frame');
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ recaptchaToken: token }, '*');
-        console.log('✅ reCAPTCHA token sent to iframe:', token);
-      }
-    }
 
-    window.onload = function () {
-      if (window.grecaptcha) {
-        grecaptcha.render('captcha-wrapper', {
-          sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWg', // 🔁 Replace with your real site key
-          callback: onCaptchaVerified
-        });
-      } else {
-        setTimeout(() => {
-          grecaptcha.render('captcha-wrapper', {
-            sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWgY',
-            callback: onCaptchaVerified
-          });
-        }, 1000);
-      }
-    };
-  </script>
+
+  <script>
+  function onCaptchaVerified(token) {
+    const iframe = document.getElementById('sf-frame');
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage({ recaptchaToken: token }, '*');
+      console.log('✅ reCAPTCHA token sent to iframe:', token);
+    }
+  }
+
+  window.onload = function () {
+    if (window.grecaptcha) {
+      grecaptcha.render('captcha-wrapper', {
+        sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWgY',
+        callback: onCaptchaVerified
+      });
+    }
+  };
+</script>
 
   <style>
     html, body {
