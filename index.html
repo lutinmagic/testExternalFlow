@@ -1,30 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Salesforce Flow Form</title>
+    <title>External Flow With reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onCaptchaVerified(token) {
+            const iframe = document.getElementById('sf-frame');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({ recaptchaToken: token }, '*');
+                console.log('✅ reCAPTCHA token sent to iframe:', token);
+            } else {
+                console.warn('⚠️ iframe not found or contentWindow not accessible');
+            }
+        }
 
+        function renderCaptcha() {
+            grecaptcha.render('captcha-container', {
+                sitekey: '6LeevjIrAAAAAG1GmIdz6-TB-F8EFBb5QrGHyxWg', // Replace with your reCAPTCHA site key
+                callback: onCaptchaVerified
+            });
+        }
+
+        window.onload = function () {
+            // Wait for reCAPTCHA API to load
+            if (window.grecaptcha) {
+                renderCaptcha();
+            } else {
+                window.setTimeout(renderCaptcha, 1000);
+            }
+        };
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #captcha-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+    </style>
 </head>
-<body style="margin:0; padding:0; overflow:hidden;">
+<body>
 
-<div>
-    <a href="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/" target="_blank">
-      Start Warranty Form
-    </a>    
-</div>        
+    <!-- reCAPTCHA in parent site -->
+    <div id="captcha-container"></div>
 
-    
-  <iframe
-    src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/"
-    style="position:fixed;
-           top:0;
-           left:0;
-           width:100vw;
-           height:100vh;
-           border:none;"
-    allowfullscreen>
-  </iframe>
+    <!-- Embedded Experience Cloud Flow -->
+    <iframe
+        id="sf-frame"
+        src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow/"
+        allowfullscreen>
+    </iframe>
 
-
-    
 </body>
 </html>
