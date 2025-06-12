@@ -1859,16 +1859,36 @@
 		
 
 			</div>
-      <iframe
-      src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow"
-      style="position:fixed;
-             top:0;
-             left:0;
-             width:100vw;
-             height:100vh;
-             border:none;"
-      allowfullscreen>
-    </iframe>
+<iframe
+  id="flowFrame"
+  src="https://rotobec--partial.sandbox.my.site.com/warrantyExternalFlow"
+  style="position:fixed;
+         top:0;
+         left:0;
+         width:100vw;
+         height:0;
+         border:none;"
+  allowfullscreen>
+</iframe>
+
+<script>
+  const iframe = document.getElementById('flowFrame');
+
+  function resize() {
+    try {
+      // grab the scrollHeight of the iframe’s body
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      iframe.style.height = doc.documentElement.scrollHeight + 'px';
+    } catch(e) {
+      console.warn('Unable to access iframe contents:', e);
+    }
+  }
+
+  // resize on initial load
+  iframe.addEventListener('load', resize);
+  // and again if the parent window resizes
+  window.addEventListener('resize', resize);
+</script>
 
 <footer class="c-footer u-spacing--thin u-blockColor--grayLighter" role="contentinfo" data-scroll>
 	<div class="o-container">
